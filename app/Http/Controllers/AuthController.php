@@ -3,60 +3,48 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 
 class AuthController extends Controller
 {
-    // LOGIN
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required',
-            'password' => 'required'
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = DB::table('users')
+            ->where('email', $request->email)
+            ->first();
 
-        // cek user + password
-        if ($user && Hash::check($request->password, $user->password)) {
-
-            // simpan session login
-            session([
-                'user_id' => $user->id,
-                'user_name' => $user->name
-            ]);
-
-            return redirect()->route('admin.dashboard')
-                ->with('success', 'Login berhasil!');
+        if (!$user) {
+            return back()->withInput()->with('error', 'Email tidak ditemukan');
         }
 
-        return back()->with('error', 'Email atau password salah!');
-    }
+        if (!Hash::check($request->password, $user->password)) {
+            return back()->withInput()->with('error', 'Password salah');
+        }
 
-    // REGISTER
-    public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed'
+        if (($user->role ?? null) !== 'admin') {
+            return back()->withInput()->with('error', 'Akses ditolak. Hanya admin yang dapat login.');
+        }
+
+        session([
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'role' => $user->role,
+            'is_admin' => true,
         ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        return redirect()->route('login')
-            ->with('success', 'Akun berhasil dibuat, silakan login!');
+        return redirect()->route('admin.dashboard');
     }
 
-    // LOGOUT
-    public function logout()
+    public function logout(Request $request)
     {
-        session()->flush();
+        $request->session()->flush();
         return redirect('/login')->with('success', 'Berhasil logout');
     }
 }

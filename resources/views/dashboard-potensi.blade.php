@@ -8,45 +8,49 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#fef2f2',
-                            100: '#fee2e2',
-                            200: '#fecaca',
-                            300: '#fca5a5',
-                            400: '#f87171',
-                            500: '#ef4444',
-                            600: '#dc2626',
-                            700: '#b91c1c',
-                            800: '#991b1b',
-                            900: '#7f1d1d'
-                        }
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    primary: {
+                        50: '#E6F4F3',
+                        100: '#CDE9E7',
+                        200: '#9FD3CF',
+                        300: '#6FBDB7',
+                        400: '#4FB0AA',
+                        500: '#35A69F',
+                        600: '#2F9E97',
+                        700: '#278E87',
+                        800: '#207C76',
+                        900: '#186964'
+                    },
+                    accent: {
+                        400: '#F8B84E',
+                        500: '#F5A623',
+                        600: '#F39C12'
                     }
                 }
-            }
         }
-    </script>
+    }
+</script>
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen">
 
     <!-- Header -->
-    <header class="bg-white shadow-md border-b border-red-100">
+    <header class="bg-gradient-to-r from-[#2F9E97] to-[#35A69F] shadow-md border-b border-[#2F9E97]">
         <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-                <h1 class="text-2xl md:text-3xl font-bold text-primary-700">
+                <h1 class="text-2xl md:text-3xl font-bold text-white">
                     Dashboard Potensi Ekonomi UMKM
                 </h1>
-                <p class="text-sm text-gray-500 mt-1">
+                <p class="text-sm text-primary-100 mt-1">
                     Sistem Informasi Pemetaan UMKM Kecamatan Sutojayan
                 </p>
             </div>
 
             <a href="{{ route('home') }}"
-               class="bg-primary-600 hover:bg-primary-700 text-white px-5 py-2 rounded-lg font-semibold transition text-center">
+            class="bg-[#F5A623] hover:bg-[#F39C12] text-white px-5 py-2 rounded-lg font-semibold shadow-md transition">
                 Kembali ke Beranda
             </a>
         </div>
@@ -54,7 +58,7 @@
 
     <!-- Content -->
     <main class="max-w-7xl mx-auto px-6 py-10">
-        <div class="bg-white rounded-2xl shadow-md border border-red-100 p-6 md:p-8">
+        <div class="bg-white rounded-2xl shadow-md border border-teal-100 p-6 md:p-8">
 
             <div class="mb-6">
                 <h2 class="text-3xl font-bold text-primary-700">Visualisasi Potensi Ekonomi UMKM</h2>
@@ -64,7 +68,7 @@
             </div>
 
             <!-- Area Grafik -->
-            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
+            <div class="bg-teal-50 border border-teal-100 rounded-2xl p-5 shadow-sm">
                 <div class="bg-gray-50 border border-red-100 rounded-2xl p-5 shadow-sm">
                     <h3 class="text-lg font-bold text-primary-700 mb-4">
                         Grafik Jumlah UMKM per Kelurahan/Desa
@@ -74,7 +78,7 @@
                     </div>
                 </div>
 
-                <div class="bg-gray-50 border border-red-100 rounded-2xl p-5 shadow-sm">
+                <div class="bg-primary-50 border border-primary-100 rounded-2xl p-5">
                     <h3 class="text-lg font-bold text-primary-700 mb-4">
                         Diagram Sektor Usaha Dominan
                     </h3>
@@ -87,7 +91,7 @@
             <!-- Ringkasan singkat -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
                 <div class="bg-primary-50 border border-primary-100 rounded-2xl p-5">
-                    <p class="text-sm uppercase tracking-wide text-primary-600">Total UMKM</p>
+                    <p class="text-sm uppercase tracking-wide text-teal-600">Total UMKM</p>
                     <h4 class="text-3xl font-bold mt-2 text-gray-800">{{ $totalUmkm }}</h4>
                     <p class="text-sm text-gray-600 mt-2">Jumlah keseluruhan UMKM terdata.</p>
                 </div>
@@ -110,81 +114,131 @@
         </div>
 
             <!-- Tombol Export -->
-            <div class="flex flex-wrap justify-end gap-4">
-                <button
-                    class="bg-white border border-primary-300 text-primary-700 hover:bg-primary-50 px-5 py-3 rounded-lg font-semibold transition">
-                    Download PDF
-                </button>
+            <div class="flex flex-wrap justify-end gap-4 no-print">
+            <button onclick="window.print()"
+                class="bg-white border border-[#35A69F] text-[#35A69F] hover:bg-[#E6F4F3] px-6 py-3 rounded-xl font-semibold shadow-sm">
+                Download PDF
+            </button>
 
-                <button
-                    class="bg-primary-600 hover:bg-primary-700 text-white px-5 py-3 rounded-lg font-semibold transition">
+                <a href="{{ route('umkm.export') }}"
+                class="bg-[#F5A623] hover:bg-[#F39C12] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all duration-200">
                     Export Excel
-                </button>
+                </a>
+                </a>
             </div>
 
         </div>
     </main>
 
 <script>
+    const labels = @json($chartLabels ?? []);
+    const data = @json($chartData ?? []);
+
+    const pieLabels = @json($pieLabels ?? []);
+    const pieData = @json($pieData ?? []);
+
+    // ─── Palet warna baru untuk Bar Chart ───────────────────────────────────
+    // Menggunakan kombinasi ungu, biru tua, merah bata, oranye hangat, dan hijau zaitun
+    // agar kontras jelas dengan background teal/putih namun tidak bertabrakan
+    const barColors = [
+        '#6366F1', // indigo
+        '#8B5CF6', // violet
+        '#EF4444', // merah
+        '#F97316', // oranye
+        '#EAB308', // kuning
+        '#14B8A6', // teal aksen
+        '#06B6D4', // cyan
+        '#3B82F6', // biru
+        '#A855F7', // purple
+        '#10B981', // emerald
+        '#F59E0B', // amber
+    ];
+
     const barCtx = document.getElementById('barChart');
 
-    new Chart(barCtx, {
-        type: 'bar',
-        data: {
-            labels: [
-                'Kembangarum',
-                'Sutojayan',
-                'Kalipang',
-                'Bacem',
-                'Kedungbunder',
-                'Jingglong',
-                'Sukorejo',
-                'Sumberjo',
-                'Jegu',
-                'Pandanarum',
-                'Kaulon'
-            ],
-            datasets: [{
-                label: 'Jumlah UMKM',
-                data: [60, 20, 33, 56, 5, 4, 5, 6, 127, 256],
-                backgroundColor: [
-                    '#f87171', // Kembangarum
-                    '#ef4444', // Sutojayan
-                    '#dc2626', // Kalipang
-                    '#f43f5e', // Bacem
-                    '#fecaca', // Kedungbunder
-                    '#fca5a5', // Jingglong
-                    '#fee2e2', // Sukorejo
-                    '#fda4af', // Sumberjo
-                    '#b91c1c', // Jegu
-                    '#7f1d1d',  // Pandanarum (paling gelap = dominan)
-                    '#991b1b' // Kaulon
-                ],
-                borderRadius: 8,
-                borderSkipped: false
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
+    if (barCtx) {
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Jumlah UMKM',
+                    data: data,
+                    backgroundColor: barColors,
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
             },
-            scales: {
-                x: {
-                    ticks: {
-                        maxRotation: 45,
-                        minRotation: 45
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 },
-                y: {
-                    beginAtZero: true
+                scales: {
+                    x: {
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        },
+                        grid: {
+                            color: '#E6F4F3'
+                        }
+                    }
                 }
             }
-        }
-    });
+        });
+    }
+
+    // ─── Palet warna baru untuk Doughnut Chart ──────────────────────────────
+    // Warna-warna solid dan cerah yang berbeda dari teal, tetap enak dipandang
+    const pieColors = [
+        '#6366F1', // indigo
+        '#F97316', // oranye
+        '#EF4444', // merah
+        '#EAB308', // kuning emas
+        '#3B82F6', // biru
+        '#A855F7', // purple
+    ];
+
+    const pieCtx = document.getElementById('pieChart');
+
+    if (pieCtx) {
+        new Chart(pieCtx, {
+            type: 'doughnut',
+            data: {
+                labels: pieLabels,
+                datasets: [{
+                    label: 'Jumlah UMKM',
+                    data: pieData,
+                    backgroundColor: pieColors,
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '55%',
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
 </script>
 </body>
 </html>

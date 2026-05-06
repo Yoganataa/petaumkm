@@ -6,38 +6,53 @@
     <title>Tambah UMKM</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 p-8">
 
-<div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow">
-    <h2 class="text-2xl font-bold text-red-600 mb-6">Tambah Data UMKM</h2>
+<body class="bg-teal-600 p-8">
+
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-teal-100">
+
+    <!-- Judul -->
+    <h2 class="text-2xl font-bold text-teal-700 mb-6">
+        Tambah Data UMKM
+    </h2>
 
     <form action="{{ route('umkm.store') }}" method="POST">
         @csrf
 
         <div class="mb-4">
-            <label class="block mb-1 font-medium">Nama Usaha</label>
-            <input type="text" name="nama_usaha" class="w-full border p-2 rounded" required>
+            <label class="block mb-1 font-medium text-gray-700">Nama Usaha</label>
+            <input type="text" name="nama_usaha"
+                class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none"
+                required>
         </div>
 
         <div class="mb-4">
-            <label class="block mb-1 font-medium">Pemilik</label>
-            <input type="text" name="pemilik" class="w-full border p-2 rounded" required>
+            <label class="block mb-1 font-medium text-gray-700">Pemilik</label>
+            <input type="text" name="pemilik"
+                class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none"
+                required>
         </div>
 
         <div class="mb-4">
-            <label class="block mb-1 font-medium">Bidang Usaha</label>
-            <select name="bidang_usaha" class="w-full border p-2 rounded" required>
+            <label class="block mb-1 font-medium text-gray-700">Bidang Usaha</label>
+            <select name="bidang_usaha"
+                class="w-full border border-gray-300 p-2 rounded-lg text-black focus:ring-2 focus:ring-teal-400 focus:outline-none"
+                required>
                 <option value="">-- Pilih Bidang Usaha --</option>
-                <option value="Kuliner">Kuliner</option>
-                <option value="Fashion">Fashion</option>
-                <option value="Kerajinan">Kerajinan</option>
-                <option value="Jasa">Jasa</option>
-            </select>
+                        <option value="Kuliner" class="text-black">Kuliner</option>
+                        <option value="Perdagangan" class="text-black">Perdagangan</option>
+                        <option value="Industri/Produksi" class="text-black">Industri/Produksi</option>
+                        <option value="Jasa" class="text-black">Jasa</option>
+                        <option value="Kecantikan" class="text-black">Kecantikan</option>
+                        <option value="Lainnya" class="text-black">Lainnya</option>
+                    </select>
         </div>
 
         <div class="mb-4">
-            <label class="block mb-1 font-medium">Desa / Kelurahan</label>
-            <select name="desa" class="w-full border p-2 rounded" required>
+            <label class="block mb-1 font-medium text-gray-700">Desa / Kelurahan</label>
+            <select name="desa"
+                class="w-full border border-gray-300 p-2 rounded-lg text-black focus:ring-2 focus:ring-teal-400 focus:outline-none"
+                required>
                 <option value="">-- Pilih Wilayah --</option>
                 <option value="Sutojayan">Sutojayan</option>
                 <option value="Kalipang">Kalipang</option>
@@ -54,13 +69,17 @@
         </div>
 
         <div class="mb-4">
-            <label class="block mb-1 font-medium">Alamat</label>
-            <textarea name="alamat" class="w-full border p-2 rounded" rows="3"></textarea>
+            <label class="block mb-1 font-medium text-gray-700">Alamat</label>
+            <textarea name="alamat"
+                class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none"
+                rows="3"></textarea>
         </div>
 
         <div class="mb-4">
-            <label class="block mb-1 font-medium">Status Potensi</label>
-            <select name="status_potensi" class="w-full border p-2 rounded" required>
+            <label class="block mb-1 font-medium text-gray-700">Status Potensi</label>
+            <select name="status_potensi"
+                class="w-full border border-gray-300 p-2 rounded-lg text-black focus:ring-2 focus:ring-teal-400 focus:outline-none"
+                required>
                 <option value="tinggi">Tinggi</option>
                 <option value="sedang">Sedang</option>
                 <option value="rendah">Rendah</option>
@@ -69,28 +88,36 @@
 
         <div class="grid grid-cols-2 gap-4 mb-4">
             <div>
-                <label class="block mb-1 font-medium">Latitude</label>
-                <input type="text" name="latitude" class="w-full border p-2 rounded" placeholder="-8.1724563">
+                <label class="block mb-1 font-medium text-gray-700">Latitude</label>
+                <input type="text" name="latitude"
+                    class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none"
+                    placeholder="-8.1724563">
             </div>
             <div>
-                <label class="block mb-1 font-medium">Longitude</label>
-                <input type="text" name="longitude" class="w-full border p-2 rounded" placeholder="112.2122597">
+                <label class="block mb-1 font-medium text-gray-700">Longitude</label>
+                <input type="text" name="longitude"
+                    class="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none"
+                    placeholder="112.2122597">
             </div>
         </div>
 
-        <div class="mb-6 text-sm text-gray-500">
+        <div class="mb-6 text-sm text-gray-600">
             Isi latitude dan longitude agar titik UMKM bisa tampil di peta.
         </div>
 
-        <button type="submit"
-            class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
-            Simpan
-        </button>
+        <!-- BUTTON -->
+        <div class="flex gap-3">
+            <button type="submit"
+                class="bg-orange-500 text-white px-5 py-2 rounded-lg font-semibold hover:bg-orange-600 transition">
+                Simpan
+            </button>
 
-        <a href="{{ route('admin.data.umkm') }}"
-           class="ml-2 bg-gray-300 px-4 py-2 rounded inline-block">
-           Batal
-        </a>
+            <a href="{{ route('admin.data.umkm') }}"
+               class="bg-teal-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-teal-700 transition">
+               Batal
+            </a>
+        </div>
+
     </form>
 </div>
 

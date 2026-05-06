@@ -9,6 +9,21 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
     <style>
+        :root {
+            --primary: #35A69F;       /* hijau tosca utama */
+            --primary-dark: #2F9E97;  /* hijau lebih gelap */
+            --primary-soft: #E6F4F3;  /* hijau soft */
+
+            --accent: #F5A623;        /* kuning */
+            --accent-dark: #F39C12;   /* orange */
+
+            --text-dark: #1d2a39;
+            --text-muted: #667085;
+            --border-soft: #e6efee;
+            --white: #ffffff;
+            --bg-light: #f8fafc;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -17,8 +32,8 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #ffffff;
-            color: #222;
+            background: var(--bg-light);
+            color: var(--text-dark);
         }
 
         a {
@@ -35,8 +50,8 @@
 
         /* NAVBAR */
         .navbar {
-            background: #fff;
-            border-bottom: 1px solid #d9d9d9;
+            background: var(--white);
+            border-bottom: 1px solid var(--border-soft);
             height: 78px;
             display: flex;
             align-items: center;
@@ -59,7 +74,7 @@
             width: 34px;
             height: 34px;
             border-radius: 50%;
-            background: #de2b23;
+            background: var(--primary);
             color: #fff;
             display: flex;
             align-items: center;
@@ -70,9 +85,9 @@
 
         .brand-text h1 {
             font-size: 15px;
-            color: #cf241d;
+            color: var(--primary);
             font-weight: 700;
-            line-height: 1.1;
+            line-height: 1.15;
             margin-bottom: 3px;
         }
 
@@ -87,21 +102,20 @@
             gap: 28px;
             font-size: 15px;
             font-weight: 600;
-            color: #333;
+            color: #2d3748;
         }
 
         .menu a.active {
-            color: #d62a22;
+            color: var(--primary);
         }
 
         /* HERO */
         .hero {
             position: relative;
-            min-height: 420px;
+            min-height: 430px;
             overflow: hidden;
-            border-top: 1px solid #ddd;
             background:
-                linear-gradient(rgba(169, 18, 18, 0.78), rgba(169, 18, 18, 0.78)),
+                linear-gradient(rgba(53, 166, 159, 0.80), rgba(47, 158, 151, 0.65)),
                 url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1600&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
@@ -111,7 +125,12 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, rgba(146, 12, 12, 0.55) 0%, rgba(186, 30, 30, 0.30) 55%, rgba(192, 39, 39, 0.18) 100%);
+            background: linear-gradient(
+                90deg,
+                rgba(30, 120, 115, 0.5)0%,
+                rgba(42, 157, 143, 0.22) 55%,
+                rgba(255, 255, 255, 0.06) 100%
+            );
             pointer-events: none;
         }
 
@@ -123,14 +142,14 @@
         .hero-content {
             display: grid;
             grid-template-columns: 1.05fr 1fr;
-            gap: 26px;
+            gap: 28px;
             align-items: center;
-            padding: 16px 0 24px;
+            padding: 28px 0 34px;
         }
 
         .hero-left {
             color: #fff;
-            padding-top: 20px;
+            padding-top: 10px;
         }
 
         .hero-badge {
@@ -142,52 +161,56 @@
             border-radius: 24px;
             margin-bottom: 18px;
             font-weight: 600;
+            backdrop-filter: blur(2px);
         }
 
         .hero-left h2 {
             font-size: 44px;
-            line-height: 1.05;
+            line-height: 1.08;
             font-weight: 800;
             margin-bottom: 18px;
-            max-width: 560px;
+            max-width: 580px;
         }
 
         .hero-left p {
             font-size: 16px;
-            line-height: 1.8;
+            line-height: 1.75;
             max-width: 560px;
-            color: #ffe8e8;
+            color: rgba(255,255,255,0.92);
         }
 
         .hero-map-card {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.35);
-            border-radius: 16px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.26);
+            border-radius: 18px;
             padding: 12px;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.15);
-            margin-top: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            margin-top: 6px;
+            backdrop-filter: blur(4px);
         }
 
         .hero-map-title {
-            color: #fff;
+            color: #18443f;
             font-weight: 700;
             font-size: 18px;
             margin-bottom: 10px;
             padding-left: 4px;
+            color: #f7fffe;
         }
 
         #heroMap {
             width: 100%;
-            height: 292px;
+            height: 320px;
+            min-height: 320px;
             border-radius: 14px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.45);
+            border: 1px solid rgba(255,255,255,0.50);
         }
 
         /* CTA */
         .cta-section {
-            background: #fff;
-            padding: 46px 0 22px;
+            background: transparent;
+            padding: 42px 0 20px;
         }
 
         .cta-buttons {
@@ -198,39 +221,54 @@
         }
 
         .btn-red {
-            background: #e1261c;
             color: #fff;
             font-weight: 700;
             border: none;
-            border-radius: 8px;
-            padding: 14px 22px;
-            min-width: 112px;
-            box-shadow: 0 6px 14px rgba(225, 38, 28, 0.22);
-            transition: .2s ease;
+            border-radius: 10px;
+            padding: 14px 24px;
+            min-width: 220px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.10);
+            transition: .25s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
         }
 
-        .btn-red:hover {
-            background: #c91d15;
+        .cta-buttons .btn-red:first-child {
+            background: linear-gradient(135deg, #35A69F, #5FC3BC);
+            box-shadow: 0 8px 18px rgba(42, 157, 143, 0.24);
+        }
+
+        .cta-buttons .btn-red:last-child {
+            background: linear-gradient(135deg, #F5A623, #F8B84E);
+            box-shadow: 0 8px 18px rgba(244, 162, 97, 0.28);
+        }
+
+        .cta-buttons .btn-red:first-child:hover {
+            background: linear-gradient(135deg, var(--primary-dark), #3ca99d);
+            transform: translateY(-2px);
+        }
+
+        .cta-buttons .btn-red:last-child:hover {
+            background: linear-gradient(135deg, var(--accent-dark), #eea14d);
+            transform: translateY(-2px);
         }
 
         /* STATS */
         .stats-section {
-            padding: 32px 0 52px;
+            padding: 34px 0 54px;
             text-align: center;
         }
 
         .stats-section h3 {
             font-size: 26px;
             font-weight: 800;
-            color: #dd2119;
+            color: var(--primary);
             margin-bottom: 8px;
         }
 
         .stats-section .subtitle {
-            color: #666;
+            color: #667085;
             font-size: 16px;
             margin-bottom: 34px;
         }
@@ -245,17 +283,21 @@
         .card {
             background: #fff;
             border-radius: 16px;
-            padding: 20px 18px;
-            min-height: 118px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-            border: 1px solid #f0dede;
+            padding: 22px 18px;
+            min-height: 124px;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+            border: 1px solid var(--border-soft);
         }
 
         .card-red {
-            background: linear-gradient(180deg, #de1f18 0%, #c71616 100%);
+            background: linear-gradient(180deg, #2A9D8F 0%, #23897d 100%);
             color: #fff;
             border: none;
-            box-shadow: 0 8px 20px rgba(199, 22, 22, 0.18);
+            box-shadow: 0 10px 24px rgba(42, 157, 143, 0.18);
+        }
+
+        .card-white {
+            border-left: 4px solid var(--accent);
         }
 
         .card-label {
@@ -264,12 +306,12 @@
             letter-spacing: .3px;
             margin-bottom: 12px;
             color: inherit;
-            opacity: 0.95;
+            opacity: 0.96;
+            font-weight: 700;
         }
 
         .card-white .card-label {
-            color: #e15f56;
-            font-weight: 700;
+            color: var(--accent);
         }
 
         .card-value {
@@ -287,18 +329,18 @@
         }
 
         .card-white .card-value {
-            color: #1d2a39;
+            color: var(--text-dark);
         }
 
         .card-white .card-desc {
-            color: #67707a;
+            color: var(--text-muted);
         }
 
         /* FOOTER */
         footer {
-            background: #a91414;
+            background: #2F9E97;
             color: #fff;
-            padding: 20px 0 18px;
+            padding: 22px 0 20px;
             text-align: center;
             margin-top: 8px;
         }
@@ -317,6 +359,27 @@
         footer .footer-copy {
             font-size: 14px;
             opacity: 0.95;
+        }
+
+        /* LEAFLET */
+        .leaflet-popup-content {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+        }
+
+        #heroMap .leaflet-control-zoom a {
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            font-size: 20px;
+        }
+
+        #heroMap .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+        }
+
+        #heroMap .leaflet-container {
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         @media (max-width: 992px) {
@@ -360,6 +423,11 @@
 
             #heroMap {
                 height: 260px;
+                min-height: 260px;
+            }
+
+            .btn-red {
+                min-width: 180px;
             }
         }
     </style>
@@ -401,7 +469,17 @@
                 <div class="hero-right">
                     <div class="hero-map-card">
                         <div class="hero-map-title">Ilustrasi Peta Kecamatan Sutojayan</div>
-                        <div id="heroMap"></div>
+                        <div id="heroMap">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126375.87298760725!2d112.14670725186036!3d-8.177951728665716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78eab02c260a89%3A0xee10358bf49a398d!2sKec.%20Sutojayan%2C%20Kabupaten%20Blitar%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1777639193568!5m2!1sid!2sid"
+                                width="100%"
+                                height="100%"
+                                style="border:0; border-radius:14px;"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -423,27 +501,27 @@
             <p class="subtitle">Gambaran awal kondisi UMKM di Kecamatan Sutojayan</p>
 
             <div class="cards">
-    <div class="card card-red">
-        <div class="card-label">Jumlah UMKM</div>
-        <div class="card-value">{{ $totalUmkm }}</div>
-        <div class="card-desc">Total keseluruhan UMKM terdata di Kecamatan Sutojayan</div>
-    </div>
+                <div class="card card-red">
+                    <div class="card-label">Jumlah UMKM</div>
+                    <div class="card-value">{{ $totalUmkm }}</div>
+                    <div class="card-desc">Total keseluruhan UMKM terdata di Kecamatan Sutojayan</div>
+                </div>
 
-    <div class="card card-white">
-        <div class="card-label">Sektor Usaha Terbanyak</div>
-        <div class="card-value">{{ $sektorDominan }}</div>
-        <div class="card-desc">
-            Sektor dominan yang paling banyak dijalankan pelaku UMKM
-            ({{ $jumlahSektorDominan }} UMKM)
-        </div>
-    </div>
+                <div class="card card-white">
+                    <div class="card-label">Sektor Usaha Terbanyak</div>
+                    <div class="card-value">{{ $sektorDominan }}</div>
+                    <div class="card-desc">
+                        Sektor dominan yang paling banyak dijalankan pelaku UMKM
+                        ({{ $jumlahSektorDominan }} UMKM)
+                    </div>
+                </div>
 
-    <div class="card card-white">
-        <div class="card-label">Total Potensi Ekonomi</div>
-        <div class="card-value">Belum tersedia</div>
-        <div class="card-desc">Estimasi kontribusi ekonomi UMKM terhadap wilayah</div>
-    </div>
-</div>
+                <div class="card card-white">
+                    <div class="card-label">Total Potensi Ekonomi</div>
+                    <div class="card-value">Belum tersedia</div>
+                    <div class="card-desc">Estimasi kontribusi ekonomi UMKM terhadap wilayah</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -454,87 +532,5 @@
             <div class="footer-copy">© 2026 - Semua Hak Dilindungi</div>
         </div>
     </footer>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const map = L.map('heroMap').setView([-8.1690904, 112.211385], 13);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        // Garis batas Kecamatan Sutojayan
-        const batasKecamatan = [
-            [-8.1560, 112.1950],
-            [-8.1485, 112.2140],
-            [-8.1490, 112.2400],
-            [-8.1560, 112.2785],
-            [-8.1730, 112.2795],
-            [-8.1955, 112.2460],
-            [-8.2010, 112.2240],
-            [-8.1880, 112.1980],
-            [-8.1730, 112.1930]
-        ];
-
-        const polygon = L.polygon(batasKecamatan, {
-            color: '#ef4444',
-            weight: 3,
-            dashArray: '10, 8',
-            fillOpacity: 0
-        }).addTo(map);
-
-        // Titik tengah (kurang lebih tengah kecamatan)
-        const centerPoint = [-8.172, 112.225];
-
-        // Marker transparan hanya untuk label
-        L.marker(centerPoint, {
-        opacity: 0
-        })
-        .addTo(map)
-        .bindTooltip("Kecamatan Sutojayan", {
-            permanent: true,
-            direction: "center",
-            className: "label-kecamatan"
-        });
-
-        map.fitBounds(polygon.getBounds(), { padding: [20, 20] });
-
-        setTimeout(() => {
-            map.invalidaeSize();
-        }, 300);
-    });
-</script>
-
-<style>
-    #heroMap {
-    width: 100%;
-    height: 360px;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.45);
-}
-
-.leaflet-popup-content {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
-}
-    #heroMap .leaflet-control-zoom a {
-        width: 34px;
-        height: 34px;
-        line-height: 34px;
-        font-size: 20px;
-    }
-
-    #heroMap .leaflet-popup-content-wrapper {
-        border-radius: 12px;
-    }
-
-    #heroMap .leaflet-container {
-        font-family: Arial, Helvetica, sans-serif;
-    }
-</style>
-
 </body>
 </html>

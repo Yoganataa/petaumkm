@@ -6,136 +6,178 @@
     <title>Data UMKM - WebGIS UMKM Sutojayan</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#fef2f2',
-                            100: '#fee2e2',
-                            200: '#fecaca',
-                            300: '#fca5a5',
-                            400: '#f87171',
-                            500: '#ef4444',
-                            600: '#dc2626',
-                            700: '#b91c1c',
-                            800: '#991b1b',
-                            900: '#7f1d1d'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
 </head>
+
 <body class="bg-gray-100 text-gray-800 min-h-screen">
 
-    <!-- Header -->
-    <header class="bg-white shadow-md border-b border-red-100">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div>
-                <h1 class="text-xl md:text-2xl font-bold text-primary-700">
-                    Modul Data UMKM
-                </h1>
-                <p class="text-sm text-gray-500">
-                    Sistem Informasi Pemetaan UMKM Kecamatan Sutojayan
-                </p>
-            </div>
+<div class="min-h-screen flex">
 
-            <a href="{{ route('admin.dashboard') }}"
-                class="bg-primary-600 hover:bg-primary-700 text-white px-5 py-2 rounded-lg font-semibold transition">
-                Kembali ke Dashboard
-            </a>
+    <aside class="w-72 bg-gradient-to-b from-[#2F9E97] to-[#186964] text-white flex flex-col shadow-xl">
+        <div class="px-6 py-6 border-b border-teal-500">
+            <h1 class="text-2xl font-bold">Admin WebGIS UMKM</h1>
+            <p class="text-white text-sm mt-1">Kecamatan Sutojayan</p>
         </div>
-    </header>
 
-    <!-- Content -->
-    <main class="max-w-7xl mx-auto px-6 py-10">
-        <div class="bg-white rounded-2xl shadow-md border border-red-100 p-6 md:p-8">
+        <nav class="flex-1 px-4 py-6 space-y-3">
+            <a href="{{ route('admin.dashboard') }}"
+               class="block px-4 py-3 rounded-xl text-white hover:bg-[#2F9E97] font-semibold transition">
+                Dashboard
+            </a>
 
-            <!-- Judul -->
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold text-primary-700">Tabel Data UMKM</h2>
-                <p class="text-gray-600 mt-1">
-                    Modul ini digunakan untuk mengelola data UMKM secara terstruktur, cepat, dan terintegrasi dengan peta WebGIS.
-                </p>
-            </div>
+            <a href="{{ route('admin.data.umkm') }}"
+               class="block px-4 py-3 rounded-xl bg-[#F5A623] text-white font-semibold shadow">
+                Data UMKM
+            </a>
 
-            <!-- Tabel -->
-            <div class="overflow-x-auto rounded-xl border border-gray-200">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-primary-700 text-white">
-                        <tr>
-                            <th class="px-4 py-3 text-left text-sm font-semibold">No</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold">Nama Usaha</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold">Pemilik</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold">Bidang Usaha</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold">Desa</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold">Status Potensi</th>
-                            <th class="px-4 py-3 text-center text-sm font-semibold">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100 bg-white">
-                        @foreach ($umkms as $umkm)
-                        <tr class="hover:bg-red-50 transition">
-                            <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                            <td class="px-4 py-3 font-medium">{{ $umkm->nama_usaha }}</td>
-                            <td class="px-4 py-3">{{ $umkm->pemilik }}</td>
-                            <td class="px-4 py-3">{{ $umkm->bidang_usaha }}</td>
-                            <td class="px-4 py-3">{{ $umkm->desa }}</td>
-                            <td class="px-4 py-3">
-                        <span class="bg-green-100 text-green-700 text-sm px-3 py-1 rounded-full">
-                            {{ $umkm->status_potensi }}
-                        </span>
-                    </td>
-                    <td class="px-4 py-3">
-                        <div class="flex justify-center gap-2">
-                        <a href="{{ route('umkm.edit', $umkm->id) }}"
-                            class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md text-sm inline-block">
-                            Edit
-                        </a>
+            <a href="{{ route('admin.map.umkm') }}"
+               class="block px-4 py-3 rounded-xl text-white hover:bg-[#2F9E97] font-semibold transition">
+                Peta UMKM
+            </a>
 
-                    <form action="{{ route('umkm.destroy', $umkm->id) }}" method="POST"
-                      onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit"
-                            class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm">
-                        Hapus
-                    </button>
-                    </form>
+            <a href="{{ route('logout') }}"
+               class="block px-4 py-3 rounded-xl text-white hover:bg-[#2F9E97] font-semibold transition">
+                Logout
+            </a>
+        </nav>
+    </aside>
+
+        <div class="flex-1 flex flex-col">
+
+        <header class="bg-white shadow-md border-b border-[#E6F4F3]">
+            <div class="px-8 py-6 flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-[#2F9E97]">
+                        Modul Data UMKM
+                    </h1>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Sistem Informasi Pemetaan UMKM Kecamatan Sutojayan
+                    </p>
                 </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-                </table>
+
+                <div class="flex items-center gap-3">
+                    <div class="text-right">
+                        <p class="font-semibold text-gray-800">
+                            {{ session('user_name') ?? 'Admin' }}
+                        </p>
+                        <p class="text-sm text-gray-500">Pengelola Sistem</p>
+                    </div>
+
+                    <div class="w-11 h-11 rounded-full bg-[#35A69F] text-white flex items-center justify-center font-bold text-lg shadow">
+                        A
+                    </div>
+                </div>
             </div>
+        </header>
 
-            <!-- Tombol bawah -->
-            <div class="mt-8 flex flex-wrap justify-center gap-4">
-                <a href="{{ route('umkm.create') }}"
-                class="bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700 transition">
-                    Tambah UMKM
-                </a>
+        <main class="flex-1 px-8 py-10">
+            <div class="bg-white rounded-2xl shadow-md border border-primary-100 p-6 md:p-8">
 
-                <form action="{{ route('umkm.import') }}" method="POST" enctype="multipart/form-data" class="flex items-center gap-2">
-                    @csrf
-                    <input type="file" name="file" class="border border-gray-300 rounded-lg px-3 py-2" required>
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-teal-700">Tabel Data UMKM</h2>
+                    <p class="text-gray-600 mt-1">
+                        Modul ini digunakan untuk mengelola data UMKM secara terstruktur, cepat, dan terintegrasi dengan peta WebGIS.
+                    </p>
+                </div>
+
+                <div class="overflow-x-auto rounded-xl border border-gray-200">
+                    <table class="w-full text-sm">
+                        <thead class="bg-[#2F9E97] text-white">
+                            <tr>
+                                <th class="px-3 py-3 text-left">No</th>
+                                <th class="px-3 py-3 text-left">Nama Usaha</th>
+                                <th class="px-3 py-3 text-left">Pemilik</th>
+                                <th class="px-3 py-3 text-left">Bidang</th>
+                                <th class="px-3 py-3 text-left">Kel/Desa</th>
+                                <th class="px-3 py-3 text-left">Latitude</th>
+                                <th class="px-3 py-3 text-left">Longitude</th>
+                                <th class="px-3 py-3 text-left">Status</th>
+                                <th class="px-3 py-3 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="divide-y divide-gray-100 bg-white">
+                            @foreach ($umkms as $umkm)
+                            <tr class="hover:bg-[#E6F4F3] transition">
+                                <td class="px-3 py-2">{{ $loop->iteration }}</td>
+
+                                <td class="px-3 py-2 font-medium max-w-[150px] truncate">
+                                    {{ $umkm->nama_usaha }}
+                                </td>
+
+                                <td class="px-3 py-2">{{ $umkm->pemilik ?? '-' }}</td>
+
+                                <td class="px-3 py-2">{{ $umkm->bidang_usaha }}</td>
+
+                                <td class="px-3 py-2">{{ $umkm->desa }}</td>
+
+                                <td class="px-3 py-2 text-xs">{{ $umkm->latitude }}</td>
+
+                                <td class="px-3 py-2 text-xs">{{ $umkm->longitude }}</td>
+
+                                <td class="px-3 py-2">
+                                    @if($umkm->status_potensi == 'tinggi')
+                                        <span class="bg-[#E6F4F3] text-[#2F9E97] px-2 py-1 rounded-full text-xs">tinggi</span>
+                                    @elseif($umkm->status_potensi == 'sedang')
+                                        <span class="bg-[#FFF3D6] text-[#F5A623] px-2 py-1 rounded-full text-xs">sedang</span>
+                                    @else
+                                        <span class="bg-red-100 text-red-600 px-2 py-1 rounded-full text-xs">rendah</span>
+                                    @endif
+                                </td>
+
+                                <td class="px-3 py-2">
+                                    <div class="flex justify-center gap-2">
+                                        <a href="{{ route('umkm.edit', $umkm->id) }}"
+                                        class="bg-[#F5A623] hover:bg-[#F39C12] text-white px-2 py-1 rounded text-xs">
+                                            Edit
+                                        </a>
+
+                                        <form action="{{ route('umkm.destroy', $umkm->id) }}" method="POST"
+                                            onsubmit="return confirm('Yakin hapus?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                    class="bg-[#F5A623] hover:bg-[#F39C12] text-white px-2 py-1 rounded text-xs">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-8 flex flex-wrap justify-center items-center gap-4">
+                    <a href="{{ route('umkm.create') }}"
+                       class="bg-[#F5A623] text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition">
+                        Tambah UMKM
+                    </a>
+
+                    <form action="{{ route('umkm.import') }}" method="POST" enctype="multipart/form-data"
+                          class="flex flex-wrap justify-center items-center gap-3">
+                        @csrf
+
+                        <input type="file" name="file"
+                               class="bg-white border border-primary-300 rounded-lg px-3 py-2 text-gray-700"
+                               required>
+
                     <button type="submit"
-                        class="bg-white border border-primary-300 text-primary-700 hover:bg-primary-50 px-6 py-3 rounded-lg font-semibold shadow-sm transition">
+                            class="bg-[#35A69F] hover:bg-[#2F9E97] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition">
                         Import Excel
                     </button>
-                </form>
+                    </form>
 
-                <button class="bg-white border border-primary-300 text-primary-700 hover:bg-primary-50 px-6 py-3 rounded-lg font-semibold shadow-sm transition">
-                    Export Data
-                </button>
+                    <a href="{{ route('umkm.export') }}"
+                    class="bg-[#F5A623] hover:bg-[#F39C12] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition">
+                        Export Data
+                    </a>
+                </div>
+
             </div>
-        </div>
-    </main>
+        </main>
+
+    </div>
+</div>
 
 </body>
 </html>

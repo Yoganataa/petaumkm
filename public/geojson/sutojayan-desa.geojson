@@ -1,0 +1,374 @@
+{
+  "type": "FeatureCollection",
+  "name": "sutojayan_desa_sederhana",
+  "metadata": {
+    "description": "GeoJSON sederhana untuk visualisasi desa/kelurahan Kecamatan Sutojayan. Ini bukan batas resmi administrasi.",
+    "coordinate_order": "longitude, latitude",
+    "crs": "EPSG:4326"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Kedungbunder"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.19,
+              -8.16
+            ],
+            [
+              112.21,
+              -8.16
+            ],
+            [
+              112.21,
+              -8.18
+            ],
+            [
+              112.19,
+              -8.18
+            ],
+            [
+              112.19,
+              -8.16
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Pandanarum"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.19,
+              -8.18
+            ],
+            [
+              112.21,
+              -8.18
+            ],
+            [
+              112.21,
+              -8.2
+            ],
+            [
+              112.19,
+              -8.2
+            ],
+            [
+              112.19,
+              -8.18
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Kembangarum"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.21,
+              -8.15
+            ],
+            [
+              112.23,
+              -8.15
+            ],
+            [
+              112.23,
+              -8.17
+            ],
+            [
+              112.21,
+              -8.17
+            ],
+            [
+              112.21,
+              -8.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Kalipang"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.21,
+              -8.17
+            ],
+            [
+              112.23,
+              -8.17
+            ],
+            [
+              112.23,
+              -8.19
+            ],
+            [
+              112.21,
+              -8.19
+            ],
+            [
+              112.21,
+              -8.17
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Jingglong"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.23,
+              -8.17
+            ],
+            [
+              112.25,
+              -8.17
+            ],
+            [
+              112.25,
+              -8.19
+            ],
+            [
+              112.23,
+              -8.19
+            ],
+            [
+              112.23,
+              -8.17
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Jegu"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.23,
+              -8.15
+            ],
+            [
+              112.25,
+              -8.15
+            ],
+            [
+              112.25,
+              -8.17
+            ],
+            [
+              112.23,
+              -8.17
+            ],
+            [
+              112.23,
+              -8.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Kaulon"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.25,
+              -8.15
+            ],
+            [
+              112.278,
+              -8.15
+            ],
+            [
+              112.278,
+              -8.17
+            ],
+            [
+              112.25,
+              -8.17
+            ],
+            [
+              112.25,
+              -8.15
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Sutojayan"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.21,
+              -8.19
+            ],
+            [
+              112.23,
+              -8.19
+            ],
+            [
+              112.23,
+              -8.21
+            ],
+            [
+              112.21,
+              -8.21
+            ],
+            [
+              112.21,
+              -8.19
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Sukorejo"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.23,
+              -8.19
+            ],
+            [
+              112.25,
+              -8.19
+            ],
+            [
+              112.25,
+              -8.21
+            ],
+            [
+              112.23,
+              -8.21
+            ],
+            [
+              112.23,
+              -8.19
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Sumberjo"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.23,
+              -8.21
+            ],
+            [
+              112.25,
+              -8.21
+            ],
+            [
+              112.25,
+              -8.23
+            ],
+            [
+              112.23,
+              -8.23
+            ],
+            [
+              112.23,
+              -8.21
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Bacem"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.25,
+              -8.21
+            ],
+            [
+              112.27,
+              -8.21
+            ],
+            [
+              112.27,
+              -8.23
+            ],
+            [
+              112.25,
+              -8.23
+            ],
+            [
+              112.25,
+              -8.21
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

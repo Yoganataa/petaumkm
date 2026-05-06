@@ -15,16 +15,21 @@
                 extend: {
                     colors: {
                         primary: {
-                            50: '#fef2f2',
-                            100: '#fee2e2',
-                            200: '#fecaca',
-                            300: '#fca5a5',
-                            400: '#f87171',
-                            500: '#ef4444',
-                            600: '#dc2626',
-                            700: '#b91c1c',
-                            800: '#991b1b',
-                            900: '#7f1d1d'
+                            50: '#E6F4F3',
+                            100: '#CDE9E7',
+                            200: '#9FD3CF',
+                            300: '#6FBDB7',
+                            400: '#4FB0AA',
+                            500: '#35A69F',
+                            600: '#2F9E97',
+                            700: '#278E87',
+                            800: '#207C76',
+                            900: '#186964'
+                        },
+                        accent: {
+                            400: '#F8B84E',
+                            500: '#F5A623',
+                            600: '#F39C12'
                         }
                     }
                 }
@@ -59,7 +64,7 @@
         ];
 
         const polygon = L.polygon(batasKecamatan, {
-            color: '#ef4444',
+            color: '#F5A623',
             weight: 3,
             dashArray: '10, 8',
             fillOpacity: 0
@@ -121,35 +126,34 @@
     <div class="min-h-screen flex">
 
         <!-- Sidebar -->
-        <aside class="w-64 bg-primary-800 text-white flex flex-col">
-            <div class="px-6 py-5 border-b border-primary-700">
-                <h1 class="text-lg font-bold leading-snug">
-                    Admin WebGIS UMKM
-                </h1>
-                <p class="text-sm text-red-200 mt-1">Kecamatan Sutojayan</p>
+        <aside class="w-72 bg-gradient-to-b from-[#2F9E97] to-[#186964] text-white flex flex-col shadow-xl">
+            <div class="px-6 py-6 border-b border-teal-500">
+                <h1 class="text-2xl font-bold leading-snug">Admin WebGIS UMKM</h1>
+                <p class="text-white text-sm mt-1">Kecamatan Sutojayan</p>
             </div>
 
-            <nav class="flex-1 px-4 py-6 space-y-2">
-                <a href="{{ route('admin.dashboard') }}"
-                   class="block px-4 py-3 rounded-lg bg-primary-700 hover:bg-primary-600 transition font-medium">
-                    Dashboard
-                </a>
+    <nav class="flex-1 px-4 py-6 space-y-3">
+        <a href="{{ route('admin.dashboard') }}"
+           class="block px-4 py-3 rounded-xl bg-[#F5A623] text-white font-semibold shadow">
+            Dashboard
+        </a>
 
-                <a href="{{ route('admin.data.umkm') }}"
-                    class="block px-4 py-3 rounded-lg hover:bg-primary-700 transition font-medium">
-                        Data UMKM
-                </a>
+        <a href="{{ route('admin.data.umkm') }}"
+           class="block px-4 py-3 rounded-xl text-white hover:bg-[#2F9E97] font-semibold transition">
+            Data UMKM
+        </a>
 
-                <a href="{{ route('admin.map.umkm') }}"
-                    class="block px-4 py-3 rounded-xl hover:bg-red-700 font-semibold">
-                        Peta UMKM
-                </a>
+        <a href="{{ route('admin.map.umkm') }}"
+           class="block px-4 py-3 rounded-xl text-white hover:bg-[#2F9E97] font-semibold transition">
+            Peta UMKM
+        </a>
 
-                <a href="{{ route('logout') }}"
-                    class="block px-4 py-3 rounded-lg hover:bg-red-700 transition font-medium">
-                    Logout
-                </a>
-        </aside>
+        <a href="{{ route('logout') }}"
+           class="block px-4 py-3 rounded-xl text-white hover:bg-[#2F9E97] font-semibold transition">
+            Logout
+        </a>
+    </nav>
+</aside>
 
         <!-- Main Area -->
         <div class="flex-1 flex flex-col">
@@ -185,29 +189,29 @@
 
                 <!-- Heading -->
                 <main class="flex-1 bg-gray-100 p-8">
-    <div class="mb-8">
-        <h2 class="text-3xl font-bold text-red-700">Ringkasan Dashboard</h2>
-        <p class="text-gray-600 mt-2">
-            Monitoring awal data UMKM sebagai alat bantu analisis dan pengambilan keputusan.
-        </p>
-    </div>
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-teal-700">Ringkasan Dashboard</h2>
+                    <p class="text-gray-600 mt-2">
+                     Monitoring awal data UMKM sebagai alat bantu analisis dan pengambilan keputusan.
+                    </p>
+                </div>
 
     <!-- Card Statistik -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white rounded-3xl p-8 shadow border border-red-100">
-            <p class="text-sm uppercase tracking-wide text-red-400">Total UMKM</p>
+        <div class="bg-white rounded-3xl p-8 shadow border border-primary-100">
+            <p class="text-sm uppercase tracking-wide text-primary-600">Total UMKM</p>
             <h3 class="text-5xl font-bold text-slate-800 mt-3">{{ $totalUmkm }}</h3>
             <p class="text-gray-500 mt-3">Jumlah keseluruhan UMKM terdata</p>
         </div>
 
-        <div class="bg-white rounded-3xl p-8 shadow border border-red-100">
-            <p class="text-sm uppercase tracking-wide text-red-400">UMKM Aktif</p>
+        <div class="bg-white rounded-3xl p-8 shadow border border-primary-100">
+            <p class="text-sm uppercase tracking-wide text-primary-600">UMKM Aktif</p>
             <h3 class="text-5xl font-bold text-slate-800 mt-3">{{ $umkmAktif }}</h3>
             <p class="text-gray-500 mt-3">UMKM yang aktif menjalankan usaha</p>
         </div>
 
-        <div class="bg-white rounded-3xl p-8 shadow border border-red-100">
-            <p class="text-sm uppercase tracking-wide text-red-400">Total Desa/Kelurahan</p>
+        <div class="bg-white rounded-3xl p-8 shadow border border-primary-100">
+            <p class="text-sm uppercase tracking-wide text-primary-600">Total Desa/Kelurahan</p>
             <h3 class="text-5xl font-bold text-slate-800 mt-3">{{ $totalWilayah }}</h3>
             <p class="text-gray-500 mt-3">Wilayah administrasi yang terdata</p>
         </div>
@@ -216,7 +220,7 @@
     <!-- Modul -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <a href="{{ route('admin.data.umkm') }}"
-           class="block bg-red-600 text-white rounded-3xl p-8 shadow-md hover:bg-red-700 transition">
+           class="block bg-[#F5A623] text-white rounded-3xl p-8 shadow-md hover:bg-[#F39C12] transition">
             <h3 class="text-2xl font-bold mb-4">Modul Data UMKM</h3>
             <p class="text-lg leading-relaxed">
                 Kelola data UMKM, tambah data, ubah data, dan hapus data.
@@ -224,7 +228,7 @@
         </a>
 
         <a href="{{ route('admin.map.umkm') }}"
-           class="block bg-red-800 text-white rounded-3xl p-8 shadow-md hover:bg-red-900 transition">
+           class="block bg-[#F5A623] text-white rounded-3xl p-8 shadow-md hover:bg-[#2F9E97] transition">
             <h3 class="text-2xl font-bold mb-4">Modul Peta UMKM</h3>
             <p class="text-lg leading-relaxed">
                 Lihat persebaran lokasi UMKM dan analisis spasial berbasis WebGIS.
@@ -233,16 +237,19 @@
     </div>
 
     <!-- Statistik per Sektor -->
-    <div class="bg-white rounded-3xl p-8 shadow border border-red-100 mb-8">
-        <h3 class="text-2xl font-bold text-red-700 mb-6">Statistik UMKM per Sektor</h3>
+    <div class="bg-white rounded-3xl p-8 shadow border border-[#E6F4F3] mb-8">
+        <h3 class="text-2xl font-bold text-[#2F9E97] mb-6">
+            Statistik UMKM per Sektor
+        </h3>
+
         <div class="h-[400px]">
             <canvas id="sektorChart"></canvas>
         </div>
     </div>
 
     <!-- Komposisi UMKM -->
-    <div class="bg-white rounded-3xl p-8 shadow border border-red-100">
-        <h3 class="text-2xl font-bold text-red-700 mb-6">Komposisi UMKM</h3>
+    <div class="bg-white rounded-3xl p-8 shadow border border-primary-100">
+        <h3 class="text-2xl font-bold text-primary-700 mb-6">Komposisi UMKM</h3>
         <div class="h-[400px] flex items-center justify-center">
             <canvas id="komposisiChart"></canvas>
         </div>
@@ -269,7 +276,7 @@
                     '#dc2626'  // rendah
                 ],
                 borderWidth: 2,
-                borderColor: '#ffffff'
+                borderColor: '#E6F4F3'
             }]
         },
         options: {
@@ -285,48 +292,61 @@
     });
 </script>
 
-    <script>
-    const sektorLabels = @json($sektorLabels);
-    const sektorData = @json($sektorData);
+<script>
+    const sektorLabels = @json($sektorLabels ?? []);
+    const sektorData = @json($sektorData ?? []);
 
-    const sektorCtx = document.getElementById('sektorChart').getContext('2d');
+    const sektorCanvas = document.getElementById('sektorChart');
 
-    new Chart(sektorCtx, {
-        type: 'bar',
-        data: {
-            labels: sektorLabels,
+    if (sektorCanvas) {
+        new Chart(sektorCanvas, {
+            type: 'bar',
+            data: {
+                labels: sektorLabels,
             datasets: [{
                 label: 'Jumlah UMKM',
                 data: sektorData,
                 backgroundColor: [
-                    '#ef4444',
-                    '#f87171',
-                    '#fca5a5',
-                    '#dc2626',
-                    '#991b1b',
-                    '#b91c1c',
-                    '#fb7185',
-                    '#f43f5e'
+                    '#35A69F',
+                    '#4FB0AA',
+                    '#6FBDB7',
+                    '#9FD3CF',
+                    '#F5A623',
+                    '#F8B84E'
                 ],
-                borderRadius: 10,
+                borderColor: '#ffffff',
+                borderWidth: 2,
+                borderRadius: 12,
                 borderSkipped: false
             }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
             },
-            scales: {
-                y: {
-                    beginAtZero: true
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        },
+                        grid: {
+                            color: '#E6F4F3'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
                 }
             }
-        }
-    });
+        });
+    }
 </script>
 </body>
 </html>

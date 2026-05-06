@@ -6,6 +6,9 @@ use App\Models\Umkm;
 use Illuminate\Http\Request;
 use App\Imports\UmkmImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UmkmExport;
+use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UmkmController extends Controller
 {
@@ -13,7 +16,19 @@ class UmkmController extends Controller
     {
         $umkms = Umkm::all();
         return view('admin.data-umkm', compact('umkms'));
-    }
+
+    $umkms = Umkm::all();
+
+    $dataChart = Umkm::select('desa', DB::raw('count(*) as total'))
+        ->groupBy('desa')
+        ->pluck('total', 'desa');
+
+    return view('admin.data-umkm', [
+        'umkms' => $umkms,
+        'chartLabels' => $dataChart->keys(),
+        'chartData' => $dataChart->values(),
+    ]);
+}
 
     public function create()
     {
@@ -133,6 +148,7 @@ public function dashboardPotensi()
         'Kaulon',
     ];
 
+    // ===== CHART BAR (PER DESA) =====
     $wilayahCounts = Umkm::whereNotNull('desa')
         ->selectRaw('desa, COUNT(*) as total')
         ->groupBy('desa')
@@ -144,14 +160,31 @@ public function dashboardPotensi()
         return (int) ($wilayahCounts[$wilayah] ?? 0);
     })->values();
 
+
+    // ===== CHART PIE (SEKTOR USAHA) =====
+    $sektorOrder = [
+        'Kuliner',
+        'Perdagangan',
+        'Industri/Produksi',
+        'Jasa',
+        'Kecantikan',
+        'Lainnya'
+    ];
+
     $sektorCounts = Umkm::whereNotNull('bidang_usaha')
         ->selectRaw('bidang_usaha, COUNT(*) as total')
         ->groupBy('bidang_usaha')
         ->pluck('total', 'bidang_usaha');
 
-    $pieLabels = $sektorCounts->keys()->values();
-    $pieData = $sektorCounts->values();
+// urutkan sesuai urutan tetap
+    $pieLabels = $sektorOrder;
 
+    $pieData = collect($sektorOrder)->map(function ($sektor) use ($sektorCounts) {
+        return (int) ($sektorCounts[$sektor] ?? 0);
+    })->values();
+
+
+    // ===== RINGKASAN =====
     $totalUmkm = Umkm::count();
 
     $wilayahDominan = $wilayahCounts->sortDesc()->keys()->first() ?? '-';
@@ -159,6 +192,7 @@ public function dashboardPotensi()
 
     $sektorDominan = $sektorCounts->sortDesc()->keys()->first() ?? '-';
     $jumlahSektorDominan = $sektorCounts->sortDesc()->first() ?? 0;
+
 
     return view('dashboard-potensi', compact(
         'chartLabels',
@@ -188,14 +222,25 @@ public function adminDashboard()
         ->distinct('desa')
         ->count('desa');
 
+    $sektorOrder = [
+        'Kuliner',
+        'Perdagangan',
+        'Industri/Produksi',
+        'Jasa',
+        'Kecantikan',
+        'Lainnya',
+    ];
+
     $sektorCounts = Umkm::whereNotNull('bidang_usaha')
         ->selectRaw('bidang_usaha, COUNT(*) as total')
         ->groupBy('bidang_usaha')
-        ->orderByDesc('total')
-        ->get();
+        ->pluck('total', 'bidang_usaha');
 
-    $sektorLabels = $sektorCounts->pluck('bidang_usaha');
-    $sektorData = $sektorCounts->pluck('total');
+    $sektorLabels = $sektorOrder;
+
+    $sektorData = collect($sektorOrder)->map(function ($sektor) use ($sektorCounts) {
+        return (int) ($sektorCounts[$sektor] ?? 0);
+    })->values();
 
     $komposisiCounts = Umkm::whereNotNull('status_potensi')
         ->selectRaw('status_potensi, COUNT(*) as total')
@@ -244,6 +289,42 @@ public function adminDashboard()
         'komposisiData',
         'mapUmkms'
     ));
+}
+
+public function export()
+{
+    return Excel::download(new UmkmExport, 'backup-data-umkm.xlsx');
+}
+
+public function exportDashboardPdf()
+{
+    $totalUmkm = Umkm::count();
+
+    $wilayahCounts = Umkm::whereNotNull('desa')
+        ->selectRaw('desa, COUNT(*) as total')
+        ->groupBy('desa')
+        ->pluck('total', 'desa');
+
+    $sektorCounts = Umkm::whereNotNull('bidang_usaha')
+        ->selectRaw('bidang_usaha, COUNT(*) as total')
+        ->groupBy('bidang_usaha')
+        ->pluck('total', 'bidang_usaha');
+
+    $wilayahDominan = $wilayahCounts->sortDesc()->keys()->first() ?? '-';
+    $jumlahDominan = $wilayahCounts->sortDesc()->first() ?? 0;
+
+    $sektorDominan = $sektorCounts->sortDesc()->keys()->first() ?? '-';
+    $jumlahSektorDominan = $sektorCounts->sortDesc()->first() ?? 0;
+
+    $pdf = Pdf::loadView('exports.dashboard-potensi-pdf', compact(
+        'totalUmkm',
+        'wilayahDominan',
+        'jumlahDominan',
+        'sektorDominan',
+        'jumlahSektorDominan'
+    ));
+
+    return $pdf->download('dashboard-potensi-umkm.pdf');
 }
 
 }
