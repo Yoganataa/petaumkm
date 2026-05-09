@@ -2,23 +2,26 @@ FROM php:8.2-cli
 
 WORKDIR /app
 
-COPY . .
-
 RUN apt-get update && apt-get install -y \
-    unzip \
     git \
+    unzip \
     curl \
-    libzip-dev \
     zip \
+    libpng-dev \
+    libzip-dev \
     nodejs \
     npm
 
+RUN docker-php-ext-install gd zip
+
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+COPY . .
 
 RUN composer install
 RUN npm install
 RUN npm run build
 
-EXPOSE 10000
+EXPOSE 8080
 
-CMD php artisan serve --host=0.0.0.0 --port=10000
+CMD php artisan serve --host=0.0.0.0 --port=8080
