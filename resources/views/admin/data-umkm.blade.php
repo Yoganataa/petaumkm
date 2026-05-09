@@ -149,28 +149,35 @@
                 </div>
                 <div class="mt-8 flex flex-wrap justify-center items-center gap-4">
                     <a href="{{ route('umkm.create') }}"
-                       class="bg-[#F5A623] text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition">
+                    class="bg-[#F5A623] text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition">
                         Tambah UMKM
                     </a>
 
-                    <form action="{{ route('umkm.import') }}" method="POST" enctype="multipart/form-data"
-                          class="flex flex-wrap justify-center items-center gap-3">
+                    <form action="{{ route('umkm.import') }}"
+                        method="POST"
+                        enctype="multipart/form-data"
+                        class="flex flex-wrap justify-center items-center gap-3">
                         @csrf
 
-                        <input type="file" name="file"
-                               class="bg-white border border-primary-300 rounded-lg px-3 py-2 text-gray-700"
-                               required>
+                        <input
+                            type="file"
+                            name="file"
+                            accept=".xlsx,.xls,.csv,.doc,.docx"
+                            class="bg-white border border-primary-300 rounded-lg px-3 py-2 text-gray-700"
+                            required
+                        >
 
-                    <button type="submit"
-                            class="bg-[#35A69F] hover:bg-[#2F9E97] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition">
-                        Import Excel
-                    </button>
+                        <button type="submit"
+                                class="bg-[#35A69F] hover:bg-[#2F9E97] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition">
+                            Import File
+                        </button>
                     </form>
 
                     <a href="{{ route('umkm.export') }}"
                     class="bg-[#F5A623] hover:bg-[#F39C12] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition">
                         Export Data
                     </a>
+
                 </div>
 
             </div>
