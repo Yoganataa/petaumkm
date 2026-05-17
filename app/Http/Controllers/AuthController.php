@@ -39,6 +39,8 @@ class AuthController extends Controller
             'is_admin' => true,
         ]);
 
+        $request->session()->regenerate();
+
         return redirect()->route('admin.dashboard');
     }
 

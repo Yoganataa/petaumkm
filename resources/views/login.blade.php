@@ -72,7 +72,9 @@
 
             <!-- ACTION -->
             <div class="flex justify-center items-center gap-6 pt-2 flex-wrap">
-                <span class="text-gray-600 font-medium">Login khusus admin</span>
+                <span class="text-gray-600 font-medium">
+                    Login Admin Kecamatan Sutojayan
+                </span>
 
                 <button type="submit"
                     class="bg-[#F5A623] hover:bg-[#F39C12] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all duration-200">

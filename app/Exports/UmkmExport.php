@@ -11,11 +11,26 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class UmkmExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
+    protected $field;
+    protected $value;
+
+    public function __construct($field = null, $value = null)
+    {
+        $this->field = $field;
+        $this->value = $value;
+    }
+
     public function collection()
     {
         $no = 1;
 
-        return Umkm::get()->map(function ($item) use (&$no) {
+        $query = Umkm::query();
+
+        if ($this->field && $this->value) {
+            $query->where($this->field, $this->value);
+        }
+
+        return $query->get()->map(function ($item) use (&$no) {
             return [
                 $no++,
                 $item->nama_usaha,
@@ -49,7 +64,6 @@ class UmkmExport implements FromCollection, WithHeadings, ShouldAutoSize, WithSt
 
     public function styles(Worksheet $sheet)
     {
-        // Style header
         $sheet->getStyle('A1:J1')->applyFromArray([
             'font' => [
                 'bold' => true,
@@ -57,7 +71,7 @@ class UmkmExport implements FromCollection, WithHeadings, ShouldAutoSize, WithSt
             ],
             'fill' => [
                 'fillType' => 'solid',
-                'startColor' => ['rgb' => '35A69F'], // hijau BSI
+                'startColor' => ['rgb' => '35A69F'],
             ],
         ]);
 

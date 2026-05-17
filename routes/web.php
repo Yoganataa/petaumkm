@@ -47,6 +47,15 @@ Route::get('/dashboard-potensi/pdf', [UmkmController::class, 'exportDashboardPdf
 Route::get('/dashboard-potensi/excel', [UmkmController::class, 'export'])
     ->name('dashboard.potensi.excel');
 
+Route::get('/export/potensi/{potensi}', [UmkmController::class, 'exportPotensi'])
+    ->name('umkm.export.potensi');
+
+Route::get('/export/desa/{desa}', [UmkmController::class, 'exportDesa'])
+    ->name('umkm.export.desa');
+
+Route::get('/export/sektor/{sektor}', [UmkmController::class, 'exportSektor'])
+    ->name('umkm.export.sektor');
+
 // DATA UMKM
 Route::get('/admin/data-umkm', [UmkmController::class, 'index'])->name('admin.data.umkm');
 Route::get('/admin/data-umkm/create', [UmkmController::class, 'create'])->name('umkm.create');

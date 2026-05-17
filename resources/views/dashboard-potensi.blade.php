@@ -113,132 +113,198 @@
             </div>
         </div>
 
-            <!-- Tombol Export -->
-            <div class="flex flex-wrap justify-end gap-4 no-print">
-            <button onclick="window.print()"
-                class="bg-white border border-[#35A69F] text-[#35A69F] hover:bg-[#E6F4F3] px-6 py-3 rounded-xl font-semibold shadow-sm">
-                Download PDF
-            </button>
+        <!-- Tombol Export -->
+        <div class="mt-10 no-print">
+            <div class="bg-white border border-teal-100 rounded-2xl p-5 shadow-sm">
+                <h3 class="text-lg font-bold text-primary-700 mb-4">
+                    Download Data Dashboard
+                </h3>
 
-                <a href="{{ route('umkm.export') }}"
-                class="bg-[#F5A623] hover:bg-[#F39C12] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all duration-200">
-                    Export Excel
-                </a>
-                </a>
+                <div class="flex flex-wrap justify-center gap-4">
+
+                    <button onclick="window.print()"
+                        class="bg-white border border-[#35A69F] text-[#35A69F] hover:bg-[#E6F4F3] px-6 py-3 rounded-xl font-semibold shadow-sm transition">
+                        Download PDF
+                    </button>
+
+                    <a href="{{ route('umkm.export') }}"
+                        class="bg-[#F5A623] hover:bg-[#F39C12] text-white px-6 py-3 rounded-xl font-semibold shadow-md transition">
+                        Export Semua
+                    </a>
+
+                    <div class="relative">
+                        <button onclick="togglePotensiMenu()"
+                            class="bg-[#35A69F] hover:bg-[#2F9E97] text-white px-6 py-3 rounded-xl font-semibold shadow-md transition">
+                            Data per Potensi
+                        </button>
+
+                        <div id="potensiMenu"
+                            class="hidden absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-gray-200 z-50 overflow-hidden">
+                            <a href="{{ route('umkm.export.potensi', 'rendah') }}" class="block px-4 py-3 hover:bg-gray-100">Potensi Rendah</a>
+                            <a href="{{ route('umkm.export.potensi', 'sedang') }}" class="block px-4 py-3 hover:bg-gray-100">Potensi Sedang</a>
+                            <a href="{{ route('umkm.export.potensi', 'tinggi') }}" class="block px-4 py-3 hover:bg-gray-100">Potensi Tinggi</a>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <button onclick="toggleDesaMenu()"
+                            class="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition">
+                            Data per Desa
+                        </button>
+
+                        <div id="desaMenu"
+                            class="hidden absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-200 z-50 overflow-hidden max-h-72 overflow-y-auto">
+                            @foreach($chartLabels as $desa)
+                                <a href="{{ route('umkm.export.desa', $desa) }}" class="block px-4 py-3 hover:bg-gray-100">
+                                    {{ $desa }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <button onclick="toggleSektorMenu()"
+                            class="bg-rose-500 hover:bg-rose-600 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition">
+                            Data per Sektor
+                        </button>
+
+                        <div id="sektorMenu"
+                            class="hidden absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-200 z-50 overflow-hidden">
+                            @foreach($pieLabels as $sektor)
+                                <a href="{{ route('umkm.export.sektor', $sektor) }}" class="block px-4 py-3 hover:bg-gray-100">
+                                    {{ $sektor }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+
+                </div>
             </div>
-
         </div>
     </main>
 
-<script>
-    const labels = @json($chartLabels ?? []);
-    const data = @json($chartData ?? []);
+    <script>
+    function togglePotensiMenu() {
+        document.getElementById('potensiMenu').classList.toggle('hidden');
+    }
 
-    const pieLabels = @json($pieLabels ?? []);
-    const pieData = @json($pieData ?? []);
+    function toggleDesaMenu() {
+        document.getElementById('desaMenu').classList.toggle('hidden');
+    }
 
-    // ─── Palet warna baru untuk Bar Chart ───────────────────────────────────
-    // Menggunakan kombinasi ungu, biru tua, merah bata, oranye hangat, dan hijau zaitun
-    // agar kontras jelas dengan background teal/putih namun tidak bertabrakan
-    const barColors = [
-        '#6366F1', // indigo
-        '#8B5CF6', // violet
-        '#EF4444', // merah
-        '#F97316', // oranye
-        '#EAB308', // kuning
-        '#14B8A6', // teal aksen
-        '#06B6D4', // cyan
-        '#3B82F6', // biru
-        '#A855F7', // purple
-        '#10B981', // emerald
-        '#F59E0B', // amber
-    ];
+    function toggleSektorMenu() {
+        document.getElementById('sektorMenu').classList.toggle('hidden');
+    }
+    </script>
 
-    const barCtx = document.getElementById('barChart');
+    <script>
+        const labels = @json($chartLabels ?? []);
+        const data = @json($chartData ?? []);
 
-    if (barCtx) {
-        new Chart(barCtx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Jumlah UMKM',
-                    data: data,
-                    backgroundColor: barColors,
-                    borderRadius: 8,
-                    borderSkipped: false
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
+        const pieLabels = @json($pieLabels ?? []);
+        const pieData = @json($pieData ?? []);
+
+        const barColors = [
+            '#14B8A6', // Kembangarum - cyan teal
+            '#F43F5E', // Sutojayan - rose
+            '#8B5CF6', // Kalipang - violet
+            '#F97316', // Bacem - orange soft
+            '#84CC16', // Kedungbunder - lime
+            '#6366F1', // Jingglong - indigo
+            '#EC4899', // Sukorejo - pink
+            '#0EA5E9', // Sumberjo - sky blue
+            '#A855F7', // Jegu - purple
+            '#78716C', // Pandanarum - stone
+            '#E11D48'  // Kaulon - ruby
+        ];
+        const barCtx = document.getElementById('barChart');
+
+        if (barCtx) {
+            new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Jumlah UMKM',
+                        data: data,
+                        backgroundColor: barColors,
+                        borderColor: '#ffffff',
+                        borderWidth: 2,
+                        hoverBackgroundColor: barColors,
+                        hoverBorderColor: '#ffffff',
+                        hoverBorderWidth: 3,
+                        borderRadius: 8,
+                        borderSkipped: false
+                    }]
                 },
-                scales: {
-                    x: {
-                        ticks: {
-                            maxRotation: 45,
-                            minRotation: 45
-                        },
-                        grid: {
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
                             display: false
                         }
                     },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            precision: 0
+                    scales: {
+                        x: {
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45
+                            },
+                            grid: {
+                                display: false
+                            }
                         },
-                        grid: {
-                            color: '#E6F4F3'
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            },
+                            grid: {
+                                color: '#E6F4F3'
+                            }
                         }
                     }
                 }
-            }
-        });
-    }
+            });
+        }
 
-    // ─── Palet warna baru untuk Doughnut Chart ──────────────────────────────
-    // Warna-warna solid dan cerah yang berbeda dari teal, tetap enak dipandang
-    const pieColors = [
-        '#6366F1', // indigo
-        '#F97316', // oranye
-        '#EF4444', // merah
-        '#EAB308', // kuning emas
-        '#3B82F6', // biru
-        '#A855F7', // purple
-    ];
+        const pieColors = [
+            '#2563EB', // Kuliner - Blue
+            '#A855F7', // Perdagangan - Purple
+            '#0EA5E9',// Industri/Produksi - Sky
+            '#64748B', // Jasa - Slate
+            '#EC4899', // Kecantikan - Pink
+            '#B45309', // Lainnya - Mocha/Brown
+        ];
 
-    const pieCtx = document.getElementById('pieChart');
+        const pieCtx = document.getElementById('pieChart');
 
-    if (pieCtx) {
-        new Chart(pieCtx, {
-            type: 'doughnut',
-            data: {
-                labels: pieLabels,
-                datasets: [{
-                    label: 'Jumlah UMKM',
-                    data: pieData,
-                    backgroundColor: pieColors,
-                    borderColor: '#ffffff',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '55%',
-                plugins: {
-                    legend: {
-                        position: 'bottom'
+        if (pieCtx) {
+            new Chart(pieCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: pieLabels,
+                    datasets: [{
+                        label: 'Jumlah UMKM',
+                        data: pieData,
+                        backgroundColor: pieColors,
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '55%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
                     }
                 }
-            }
-        });
-    }
-</script>
+            });
+        }
+    </script>
 </body>
 </html>

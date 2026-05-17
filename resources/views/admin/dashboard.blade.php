@@ -296,6 +296,15 @@
     const sektorLabels = @json($sektorLabels ?? []);
     const sektorData = @json($sektorData ?? []);
 
+    const sektorColors = [
+        '#2F60E3', // Kuliner
+        '#A64CE6', // Perdagangan
+        '#1F9AD6', // Industri/Produksi
+        '#6B7A93', // Jasa
+        '#E04397', // Kecantikan
+        '#B95A0A'  // Lainnya
+    ];
+
     const sektorCanvas = document.getElementById('sektorChart');
 
     if (sektorCanvas) {
@@ -303,29 +312,46 @@
             type: 'bar',
             data: {
                 labels: sektorLabels,
-            datasets: [{
-                label: 'Jumlah UMKM',
-                data: sektorData,
-                backgroundColor: [
-                    '#35A69F',
-                    '#4FB0AA',
-                    '#6FBDB7',
-                    '#9FD3CF',
-                    '#F5A623',
-                    '#F8B84E'
-                ],
-                borderColor: '#ffffff',
-                borderWidth: 2,
-                borderRadius: 12,
-                borderSkipped: false
-            }]
+                datasets: [{
+                    data: sektorData,
+                    backgroundColor: sektorColors,
+                    hoverBackgroundColor: sektorColors,
+                    borderColor: '#ffffff',
+                    borderWidth: 2,
+                    borderRadius: 12,
+                    borderSkipped: false
+                }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: false
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            color: '#374151',
+                            padding: 20,
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            font: {
+                                size: 13,
+                                weight: '600'
+                            },
+                            generateLabels(chart) {
+                                const labels = chart.data.labels;
+                                const colors = chart.data.datasets[0].backgroundColor;
+
+                                return labels.map((label, index) => ({
+                                    text: label,
+                                    fillStyle: colors[index],
+                                    strokeStyle: colors[index],
+                                    lineWidth: 0,
+                                    hidden: false,
+                                    index: index
+                                }));
+                            }
+                        }
                     }
                 },
                 scales: {

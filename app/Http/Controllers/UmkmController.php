@@ -333,6 +333,30 @@ class UmkmController extends Controller
         ));
     }
 
+    public function exportPotensi($potensi)
+    {
+        return Excel::download(
+            new UmkmExport('status_potensi', $potensi),
+            'umkm-potensi-'.$potensi.'.xlsx'
+        );
+    }
+
+    public function exportDesa($desa)
+    {
+        return Excel::download(
+            new UmkmExport('desa', $desa),
+            'umkm-desa-'.$desa.'.xlsx'
+        );
+    }
+
+    public function exportSektor($sektor)
+    {
+        return Excel::download(
+            new UmkmExport('bidang_usaha', $sektor),
+            'umkm-sektor-'.$sektor.'.xlsx'
+        );
+    }
+
     public function export()
     {
         return Excel::download(new UmkmExport, 'backup-data-umkm.xlsx');
