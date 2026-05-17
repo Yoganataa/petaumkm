@@ -22,3 +22,14 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Database
+/database/database.sqlite
+
+# Docker
+.docker/
+
+# OS files
+*.swp
+*.swo
+*~
