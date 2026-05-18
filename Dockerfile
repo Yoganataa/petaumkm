@@ -18,7 +18,10 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Enable Apache mod_rewrite and fix MPM conflict
-RUN a2dismod mpm_event && a2enmod mpm_prefork && a2enmod rewrite
+RUN a2dismod mpm_event mpm_worker 2>/dev/null; \
+    a2enmod mpm_prefork rewrite
+RUN rm -f /etc/apache2/mods-enabled/mpm_event.load /etc/apache2/mods-enabled/mpm_event.conf \
+          /etc/apache2/mods-enabled/mpm_worker.load /etc/apache2/mods-enabled/mpm_worker.conf
 
 # Set Apache document root to Laravel's public folder
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
