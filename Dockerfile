@@ -17,8 +17,8 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_sqlite pdo_mysql pdo_pgsql pgsql mbstring exif pcntl bcmath gd zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
+# Enable Apache mod_rewrite and fix MPM conflict
+RUN a2dismod mpm_event && a2enmod mpm_prefork && a2enmod rewrite
 
 # Set Apache document root to Laravel's public folder
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
@@ -27,6 +27,9 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.
 
 # Set AllowOverride All for .htaccess support
 RUN sed -ri -e 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+
+# Suppress ServerName warning
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
