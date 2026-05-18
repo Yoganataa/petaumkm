@@ -11,10 +11,10 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->updateOrInsert(
-            ['email' => 'admin@gmail.com'], // cek jika sudah ada
+            ['email' => 'sutojayancamat@gmail.com'],
             [
-                'name' => 'Admin',
-                'password' => Hash::make('admin123'),
+                'name' => 'Admin Sutojayan',
+                'password' => Hash::make('Sutojayan2026!'),
                 'role' => 'admin',
                 'created_at' => now(),
                 'updated_at' => now(),
