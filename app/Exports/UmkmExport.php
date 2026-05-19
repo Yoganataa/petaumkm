@@ -53,7 +53,7 @@ class UmkmExport implements FromCollection, WithHeadings, ShouldAutoSize, WithSt
             'Nama Usaha',
             'Pemilik',
             'Bidang Usaha',
-            'Desa/Kelurahan',
+            'Desa',
             'Alamat',
             'Status Potensi',
             'Latitude',

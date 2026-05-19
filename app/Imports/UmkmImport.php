@@ -18,13 +18,12 @@ class UmkmImport implements ToModel, WithHeadingRow
             'nama_usaha' => $row['nama_usaha'] ?? '-',
             'pemilik' => $row['pemilik'] ?? '-',
             'bidang_usaha' => $row['bidang_usaha'] ?? '-',
-
-            // aman untuk header desa / kelurahan_desa / kelurahan
             'desa' => $row['desa']
+                ?? $row['desakelurahan']
+                ?? $row['desa_kelurahan']
                 ?? $row['kelurahan_desa']
                 ?? $row['kelurahan']
                 ?? '-',
-
             'alamat' => $row['alamat'] ?? '-',
             'status_potensi' => strtolower($row['status_potensi'] ?? 'rendah'),
             'latitude' => $row['latitude'] ?? null,
