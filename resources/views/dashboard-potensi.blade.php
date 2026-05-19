@@ -7,6 +7,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
 <script>
     tailwind.config = {
@@ -307,5 +308,58 @@
             });
         }
     </script>
+    <footer style="background:#1a5c57;color:#fff;padding:48px 0 0;margin-top:40px;">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-9 pb-9">
+                <!-- Kolom 1: Tentang -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wide text-[#a8e6e0] mb-4"><i class="fas fa-building mr-2"></i>Tentang</h4>
+                    <p class="text-sm leading-relaxed text-white/85">
+                        Sistem Informasi Pemetaan UMKM Potensial Kecamatan Sutojayan — platform digital untuk pemetaan dan analisis potensi ekonomi UMKM di wilayah Kecamatan Sutojayan, Kabupaten Blitar.
+                    </p>
+                </div>
+
+                <!-- Kolom 2: Navigasi -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wide text-[#a8e6e0] mb-4"><i class="fas fa-compass mr-2"></i>Navigasi</h4>
+                    <ul class="space-y-2.5 text-sm text-white/85">
+                        <li><a href="{{ url('/') }}" class="hover:text-white">Beranda</a></li>
+                        <li><a href="{{ url('/peta-umkm') }}" class="hover:text-white">Peta UMKM</a></li>
+                        <li><a href="{{ url('/dashboard-potensi') }}" class="hover:text-white">Dashboard Potensi</a></li>
+                        <li><a href="https://kec-sutojayan.blitarkab.go.id/" target="_blank" class="hover:text-white">Website Kecamatan</a></li>
+                        <li><a href="https://www.blitarkab.go.id" target="_blank" class="hover:text-white">Website Kab. Blitar</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 3: Kontak -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wide text-[#a8e6e0] mb-4"><i class="fas fa-headset mr-2"></i>Kontak</h4>
+                    <div class="flex items-start gap-2.5 mb-3 text-sm text-white/85">
+                        <i class="fas fa-map-marker-alt mt-1 text-[#a8e6e0] w-4"></i>
+                        <span>Jl. Raya Barat No.27, Kec. Sutojayan, Kab. Blitar, Jawa Timur</span>
+                    </div>
+                    <div class="flex items-start gap-2.5 mb-3 text-sm text-white/85">
+                        <i class="fas fa-phone mt-1 text-[#a8e6e0] w-4"></i>
+                        <span>082142773816</span>
+                    </div>
+                    <div class="flex items-start gap-2.5 mb-3 text-sm text-white/85">
+                        <i class="fas fa-envelope mt-1 text-[#a8e6e0] w-4"></i>
+                        <span><a href="mailto:sutojayancamat@gmail.com" class="text-white/85 hover:text-white">sutojayancamat@gmail.com</a></span>
+                    </div>
+                    <div class="flex items-start gap-2.5 mb-3 text-sm text-white/85">
+                        <i class="fab fa-instagram mt-1 text-[#a8e6e0] w-4"></i>
+                        <span><a href="https://www.instagram.com/sutojayankecamatan" target="_blank" class="text-white/85 hover:text-white">@sutojayankecamatan</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="border-t border-white/15 py-4 flex flex-col md:flex-row justify-between items-center text-xs text-white/70 gap-2">
+                <span>© 2026 Kecamatan Sutojayan, Kabupaten Blitar. Semua Hak Dilindungi.</span>
+                <span>Dibuat oleh <a href="https://github.com/Racheliam5" target="_blank" class="text-[#a8e6e0] hover:text-white">Racheliam5</a></span>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>

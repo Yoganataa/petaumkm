@@ -338,27 +338,120 @@
 
         /* FOOTER */
         footer {
-            background: #2F9E97;
+            background: #1a5c57;
             color: #fff;
-            padding: 22px 0 20px;
-            text-align: center;
+            padding: 48px 0 0;
             margin-top: 8px;
         }
 
-        footer .footer-title {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 8px;
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap: 36px;
+            padding-bottom: 36px;
         }
 
-        footer .footer-sub {
+        .footer-col h4 {
             font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #a8e6e0;
+        }
+
+        .footer-col p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-col ul li {
             margin-bottom: 10px;
         }
 
-        footer .footer-copy {
+        .footer-col ul li a {
             font-size: 14px;
-            opacity: 0.95;
+            color: rgba(255,255,255,0.85);
+            transition: color 0.2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: #fff;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .footer-contact-item i {
+            margin-top: 3px;
+            color: #a8e6e0;
+            width: 16px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+
+        .footer-social a:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding: 18px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer-bottom a {
+            color: #a8e6e0;
+        }
+
+        .footer-bottom a:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
         }
 
         /* LEAFLET */
@@ -527,9 +620,55 @@
 
     <footer>
         <div class="container">
-            <div class="footer-title">Sistem Informasi Pemetaan UMKM Kecamatan Sutojayan</div>
-            <div class="footer-sub">Instansi Pengembang / Penelitian WebGIS UMKM</div>
-            <div class="footer-copy">© 2026 - Semua Hak Dilindungi</div>
+            <div class="footer-grid">
+                <!-- Kolom 1: Tentang -->
+                <div class="footer-col">
+                    <h4><i class="fas fa-building" style="margin-right:8px;"></i>Tentang</h4>
+                    <p>
+                        Sistem Informasi Pemetaan UMKM Potensial Kecamatan Sutojayan — platform digital untuk pemetaan dan analisis potensi ekonomi UMKM di wilayah Kecamatan Sutojayan, Kabupaten Blitar.
+                    </p>
+                </div>
+
+                <!-- Kolom 2: Navigasi -->
+                <div class="footer-col">
+                    <h4><i class="fas fa-compass" style="margin-right:8px;"></i>Navigasi</h4>
+                    <ul>
+                        <li><a href="{{ url('/') }}">Beranda</a></li>
+                        <li><a href="{{ url('/peta-umkm') }}">Peta UMKM</a></li>
+                        <li><a href="{{ url('/dashboard-potensi') }}">Dashboard Potensi</a></li>
+                        <li><a href="https://kec-sutojayan.blitarkab.go.id/" target="_blank">Website Kecamatan</a></li>
+                        <li><a href="https://www.blitarkab.go.id" target="_blank">Website Kab. Blitar</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 3: Kontak -->
+                <div class="footer-col">
+                    <h4><i class="fas fa-headset" style="margin-right:8px;"></i>Kontak</h4>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Jl. Raya Barat No.27, Kec. Sutojayan, Kab. Blitar, Jawa Timur</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>082142773816</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span><a href="mailto:sutojayancamat@gmail.com" style="color:rgba(255,255,255,0.85);">sutojayancamat@gmail.com</a></span>
+                    </div>
+
+                    <div class="footer-contact-item">
+                        <i class="fab fa-instagram"></i>
+                        <span><a href="https://www.instagram.com/sutojayankecamatan" target="_blank" style="color:rgba(255,255,255,0.85);">@sutojayankecamatan</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="footer-bottom">
+                <span>© 2026 Kecamatan Sutojayan, Kabupaten Blitar. Semua Hak Dilindungi.</span>
+                <span>Dibuat oleh <a href="https://github.com/Racheliam5" target="_blank">Racheliam5</a></span>
+            </div>
         </div>
     </footer>
 </body>
